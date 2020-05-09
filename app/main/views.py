@@ -6,6 +6,7 @@ from flask import render_template,request,redirect,url_for,abort
 from ..models import Blog, User
 from .forms import BlogForm,UpdateProfile
 from .. import db
+import markdown2  
 # from .. import db,photos
 
 
@@ -76,3 +77,11 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route('/blog/<int:id>')
+def single_blog(id):
+    blog=Blog.query.get(id)
+    if blog is None:
+        abort(404)
+    format_blog = markdown2.markdown(blog.title,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('blog.html',blog = blog,format_blog=format_blog)
