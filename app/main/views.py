@@ -30,7 +30,7 @@ def new_blog():
         print(req)
 
         blog = req.get('blog')
-        new_blog = Pitch(description = blog , user = current_user)
+        new_blog = Blog(title=blog)
         db.session.add(new_blog)
         db.session.commit()
         blog = Blog.query.all()
