@@ -1,5 +1,4 @@
 # from .models import Quote 
-from app import app
 import urllib.request,json
 
 def get_quote():
