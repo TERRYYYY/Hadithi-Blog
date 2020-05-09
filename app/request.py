@@ -1,4 +1,4 @@
-from .models import Quote 
+# from .models import Quote 
 from app import app
 import urllib.request,json
 
