@@ -12,6 +12,10 @@
     <title> HadithiBlog</title>
     {% endif %}
 </head>
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/web.css')}}">
+{% endblock %}
 
 <body>
     
