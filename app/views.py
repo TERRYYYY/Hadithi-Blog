@@ -1,6 +1,9 @@
 from flask import render_template
 from app import app
 from .request import get_quote
+from .models import Blog
+from .forms import BlogForm
+Blog = blog.Blog
 
 # Views
 @app.route('/')
@@ -19,6 +22,20 @@ def blog(id):
     '''
     View blog page function that returns the blog details page and its data
     '''
-    blog = get_quote(id)
+    blogs = Blog.get_blogs(id)
 
-    return render_template('blog.html',blog = blog)
+    return render_template('blog.html')
+
+@app.route('/blog/new/<int:id>', methods = ['GET','POST'])
+def new_blog(id):
+    form = BlogForm()
+
+    if form.validate_on_submit():
+        title = form.title.data
+        subtitle = form.subtitle.data
+        content = form.content.data
+        new_blog = Blog(id,title,subtitle,content)
+        new_blog.save_blog()
+        return redirect(url_for('blog',id = id ))
+
+    return render_template('new_blog.html',form=form)
