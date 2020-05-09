@@ -5,6 +5,7 @@ from .forms import BlogForm
 from ..models import Blog
 from flask_login import login_required
 
+
 @main.route('/')
 def index():
     '''
