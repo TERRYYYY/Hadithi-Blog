@@ -1,3 +1,5 @@
+from .models import Quote 
+from app import app
 import urllib.request,json
 
 def get_quote():
@@ -10,6 +12,5 @@ def get_quote():
     with urllib.request.urlopen(quote_url) as url:
         quote_data = url.read()
         quote_response = json.loads(quote_data)
-
         
         return quote_response

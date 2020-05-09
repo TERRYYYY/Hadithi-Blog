@@ -1,6 +1,3 @@
-{% extends 'base.html'%}
-{% import 'macros.html' as macro%}
-
 <!DOCTYPE html>
 <html>
 
@@ -9,14 +6,16 @@
     {% if title %}
     <title> {{ title }}</title>
     {% else %}
-    <title> HadithiBlog</title>
+    <title> HadithiBlog </title>
     {% endif %}
 </head>
 
 <body>
-    
+    <!-- Content block -->
+
+    {% block content %}
+
+    {% endblock%}
 </body>
-
-
 
 </html>
