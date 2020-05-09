@@ -10,17 +10,17 @@
     <div class="row">
         <!-- displaying  Username-->
         <div class="col-md-4">
-            <h3> {{user.username| capitalize}} </h3>
+            <h3 style="font-size: 35px; color: palevioletred;font-weight: bold;"> {{user.username| capitalize}} </h3>
 
             {% if user == current_user %}
-            <a href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
+            <a href="{{url_for('main.update_profile',uname=user.username)}}" style="font-size: 18px;margin-top: 20px;">Edit bio</a>
             {% endif %}
 
             <!--Displaying user bio-->
             {% if user.bio %}
             <p> {{user.bio}}</p>
             {%else%}
-            <p> {{user.username| capitalize}} has no bio </p>
+            <p style="font-size: 20px; margin-bottom:20px;"> Bio: {{user.username| capitalize}} has no bio </p>
             {% endif %}
         </div>
 
@@ -28,9 +28,21 @@
         <div class="col-md-4">
 
             {% if user.profile_pic_path %}
+            
             <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+            
             {%else%}
-            <p>No profile picture</p>
+            <p style="font-size: 18px;margin-bottom: 20px;">You have no profile picture</p>
+            
+            {% endif %}
+            
+            {% if user == current_user %}
+            <form action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype="multipart/form-data">
+            
+                <input type="file" name="photo" class="form-control" style="margin-top: 30px;" required>
+                <input type="submit" style="margin-top: 25px;" class="btn btn-info" >
+            </form>
+
             {% endif %}
         </div>
     </div>

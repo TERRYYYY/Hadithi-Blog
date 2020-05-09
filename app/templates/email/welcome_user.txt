@@ -1,0 +1,12 @@
+Hello {{user.username}}
+Welcome to HadithiBlog, where words matter.
+
+We have just seen you have signed up for our application and want to welcome you to the family. 
+
+You are now part of a community that connects global bloggers and writers with local hosts across the world.
+
+Discover interesting blogs and unique perspectives from writers, thinkers and storytellers.
+
+
+
+Regards HadithiBlog Team.
