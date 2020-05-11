@@ -17,11 +17,66 @@
 <link rel="stylesheet" href="{{url_for('static',filename='css/web.css')}}">
 {% endblock %}
 
-<body>
+<body style="color: black;font-weight: bold;font-size: 30px;">
     {% block content %}
-    <button class="btn btn-info"><a href="/blog">Get Started</a></button>
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% for blog in blogs %}
+    <div class="row">
+        <div class="col-md-6"> 
+            <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <small class="text-muted" style="font-size: 12px;">{{ blog.posted.strftime('%Y-%m-%d') }}</small>
+                </div>
+                    <h2><a class="article-title" href="{{ url_for('main.new_blog') }}" style="font-size: 38px;color: palevioletred;">{{ blog.title }}</a></h2>
+                    <h5 class="article-content" style="font-size: 30px;">{{ blog.subtitle }}</h5>
+                    <p class="article-content" style="font-size: 19px;">{{ blog.content }}</p>
+                </div>
+           </article>
+        </div>
+    </div>
+    {% endfor %}
+    {% endblock content %}
     
-    {% endblock%}
+        <!-- {% for blog in blogs %}
+        <form action="{url_for('main.new_blog')}" method="POST">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+
+                            { blog.title }
+                       </div>
+                       <div class="card-body">
+                            {blog.subtitle}
+                            {blog.content}
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        {% endfor %} -->
+
+    <!-- <button class="btn btn-info"><a href="/blog">Get Started</a></button> -->
+
+    <!-- <div class="card" style="width: 600px;height: 350px;transform: rotate(16deg);margin-left: 50px;margin-top: 50px;border: 1px solid grey;background-color: white;">
+        <h1 style="font-size: 40px; font-weight: bold;color: black;margin-left: 20px;">A place to publish your best work</h1>
+        <p style="font-size: 20px;color: black;margin-left: 20px;margin-top: 30px;">The internet should reward quality thinking, not clickbait. That’s why we’ve created a better home for writers,
+        journalists and experts. It’s simple to use, free from ads, and connects you to curious, avid readers, so you can focus
+        on what matters: putting your best work out there.</p>
+
+        <button class="btn btn-info"><a href="/blog/new">Get Started</a></button>
+
+    </div>
+     -->
     
 </body>
 

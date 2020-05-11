@@ -9,13 +9,14 @@
             </button>
             <a class="navbar-brand" href="/" style="color: #EA7186; font-size: 35px;"> Hadithi Blog </a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" style="color: palevioletred;">
             <ul class="nav navbar-nav">
                 <li><a href="/" style="margin-left: 70px;font-size: 20px;color: black;">Home</a></li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
+                <li><a href="{{url_for('main.new_blog')}}" style="font-size: 20px;color: black;">New Post</a></li>
                 <li><a href="{{url_for('main.profile',uname=current_user.username)}}" style="font-size: 20px;color: black;">Profile</a></li>
                 <li><a href="{{url_for('auth.logout')}}" style="font-size: 20px;color: black;">Sign out</a></li>
                 {% else %}

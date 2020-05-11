@@ -35,7 +35,10 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(255))
-    # posted = db.Column(db.DateTime,default=datetime.utcnow)
+    title = db.Column(db.String(255))
+    subtitle = db.Column(db.String(255))
+    content = db.Column(db.String(255))
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
     users = db.relationship('User',backref = 'role',lazy="dynamic")
 
     def __repr__(self):

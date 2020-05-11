@@ -2,42 +2,88 @@ from flask import render_template,request,redirect,url_for
 from . import main
 from ..request import get_quote
 from flask_login import login_required
-from flask import render_template,request,redirect,url_for,abort
+from flask import render_template,request,redirect,url_for,abort,flash
 from ..models import Blog, User
 from .forms import BlogForm,UpdateProfile
 from .. import db
 import markdown2  
 # from .. import db,photos
 
-
 @main.route('/')
-def index():
+def home():
     '''
     View root page function that returns the index page and its data
     '''
+    return render_template('home.html')
+
+@main.route('/blog/<int:blog_id>')
+def blog(blog_id):
+    blog = Blog.query.get(blog_id)
+
+    return render_template('blog.html',title=blog.title , blog=blog)
+
+
+@main.route('/post')
+def index():
+    
     title = 'HadithiBlog'
+    blogs = Blog.query.all()
 
-    return render_template('index.html', title = title)
+    return render_template('index.html', title = title, blogs=blogs)
 
-@main.route('/blog', methods = ['GET','POST'])
+@main.route('/blog/new', methods = ['GET','POST'])
 @login_required
 def new_blog():
     form = BlogForm()
-    blogs = Blog.query.all()
-
-
-    if request.method == "POST":
-        req = request.form
-        print(req)
-
-        blog = req.get('blog')
-        new_blog = Blog(title=blog)
-        db.session.add(new_blog)
+    if form.validate_on_submit():
+        blog = Blog(title=form.title.data , subtitle=form.subtitle.data ,content=form.content.data ,author=form.author.data )
+        db.session.add(blog)
         db.session.commit()
-        blog = Blog.query.all()
+        flash('Your post has been created !' , 'success')
+        return redirect(url_for('.index'))
+
+    return render_template('new_blog.html',title='New Post',form=form)
+
+
+
+
+# @main.route('/blog', methods = ['GET','POST'])
+# @login_required
+# def new_blog():
+#     form = BlogForm()
+#     if form.validate_on_submit():
+#         title = form.title.data
+#         subtitle = form.subtitle.data
+#         content = form.content.data
+
+#         # Updated review instance
+#         new_blog = Blog(title=title,subtitle=subtitle, content=content,user=current_user)
+
+#         # save review method
+#         new_blog.save_blog()
+#         # return redirect(url_for('.movie',id = movie.id ))
+
+#     return render_template('new_blog.html',form=form)
+
+# @main.route('/blog', methods = ['GET','POST'])
+# @login_required
+# def new_blog():
+#     form = BlogForm()
+#     blogs = Blog.query.all()
+
+
+#     if request.method == "POST":
+#         req = request.form
+#         print(req)
+
+#         blog = req.get('blog')
+#         new_blog = Blog(title=blog)
+#         db.session.add(new_blog)
+#         db.session.commit()
+#         blog = Blog.query.all()
 
         
-    return render_template("new_blog.html" ,blogs = blogs , form= form)
+#     return render_template("new_blog.html" ,blogs = blogs , form= form)
 
 @main.route('/user/<uname>')
 def profile(uname):
@@ -78,10 +124,12 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
-@main.route('/blog/<int:id>')
-def single_blog(id):
-    blog=Blog.query.get(id)
-    if blog is None:
-        abort(404)
-    format_blog = markdown2.markdown(blog.title,extras=["code-friendly", "fenced-code-blocks"])
-    return render_template('blog.html',blog = blog,format_blog=format_blog)
+# @main.route('/blog/<int:id>')
+# def single_blog(id):
+#     blog=Blog.query.get(id)
+#     if blog is None:
+#         abort(404)
+#     format_blog = markdown2.markdown(blog.title,extras=["code-friendly", "fenced-code-blocks"])
+#     return render_template('blog.html',blog = blog,format_blog=format_blog)
+
+
