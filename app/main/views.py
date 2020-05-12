@@ -23,7 +23,7 @@ def blog(blog_id):
     return render_template('blog.html',title=blog.title , blog=blog)
 
 
-@main.route('/post')
+@main.route('/blog')
 def index():
     
     title = 'HadithiBlog'
@@ -34,15 +34,26 @@ def index():
 @main.route('/blog/new', methods = ['GET','POST'])
 @login_required
 def new_blog():
+    user = User.query.filter_by(username = uname).first()
     form = BlogForm()
     if form.validate_on_submit():
-        blog = Blog(title=form.title.data , subtitle=form.subtitle.data ,content=form.content.data ,author=form.author.data )
+        blog = Blog(title=form.title.data , subtitle=form.subtitle.data ,content=form.content.data )
         db.session.add(blog)
         db.session.commit()
         flash('Your post has been created !' , 'success')
-        return redirect(url_for('.index'))
+        return redirect(url_for('.index', uname=user.username))
 
     return render_template('new_blog.html',title='New Post',form=form)
+
+@main.route('/blog/<int:blog_id>/delete' ,methods = ['POST'])
+@login_required
+def delete_blog(blog_id):
+    blog = Blog.query.get(blog_id)
+    db.session.delete(blog)
+    db.session.commit()
+    flash('Your post has been deleted !' , 'danger')
+    return redirect(url_for('.index'))
+
 
 
 
