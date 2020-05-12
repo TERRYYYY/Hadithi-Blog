@@ -53,7 +53,19 @@ def delete_blog(blog_id):
     db.session.commit()
     flash('Your post has been deleted !' , 'danger')
     return redirect(url_for('.index'))
-
+@main.route('/blog/<int:blog_id>/update' ,methods = ['GET','POST'])
+@login_required
+def update_blog(blog_id):
+    blog = Blog.query.get(blog_id)
+    form = BlogForm()
+    if form.validate_on_submit():
+        blog.title = form.title.data
+        blog.subtitle = form.subtitle.data
+        blog.content = form.content.data
+        db.session.commit()
+        flash('Your post has been updated !', 'primary')
+        return redirect(url_for('.blog',blog_id=blog.id))
+    return render_template('new_blog.html',title='Update Post',form=form)
 
 
 

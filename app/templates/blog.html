@@ -18,7 +18,6 @@
                         <div class="article-metadata">
                             <small class="text-muted" style="font-size: 12px;">{{ blog.posted.strftime('%Y-%m-%d') }}</small>
                         </div>
-                        <!-- <p class="article-content" style="font-size: 19px;">Posted by: {{ blog.role.username }}</p> -->
                         <h2 style="font-size: 38px;color: palevioletred;"><a href="{{ url_for('main.blog' ,blog_id=blog.id) }}">{{ blog.title }} </a></h2>
                         <h5 class="article-content" style="font-size: 30px;">{{ blog.subtitle }}</h5>
                         <p class="article-content" style="font-size: 19px;">{{ blog.content }}</p>

@@ -33,12 +33,17 @@
                     <div class="article-metadata">
                         <small class="text-muted" style="font-size: 12px;">{{ blog.posted.strftime('%Y-%m-%d') }}</small>
                 </div>
+
                     <p>Posted by:><a href="{{url_for('main.index', uname=current_user.username)}}"></a></p>
                     <h2><a class="article-title" href="{{ url_for('main.new_blog') }}" style="font-size: 38px;color: palevioletred;">{{ blog.title }}</a></h2>
                     <h5 class="article-content" style="font-size: 30px;">{{ blog.subtitle }}</h5>
                     <p class="article-content" style="font-size: 19px;">{{ blog.content }}</p>
+                    {% if current_user.is_authenticated %}
                     <div class="col text-right">
-                        <a href="/ " class="btn btn-success">Update</a>
+                        <a href="{{ url_for('.update_blog',blog_id=blog.id)}}" class="btn btn-success">Update</a>
+                    
+                    {%endif%}
+                    
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                             Delete
                         </button>    
