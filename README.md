@@ -3,10 +3,10 @@ By Kariuki Terry
 
 Here's a  [LINK](https://hadithiblog.herokuapp.com/)  to my website
 
-# Description
+## Description
 A python-flask based blogging web-app where users can share, read and comment on each others' blog posts.
 
-# Setup/Installation Requirements
+## Setup/Installation Requirements
 - Github and Heroku account - from where the application can be cloned or downloaded
 - Git installed in pc - for downloading the application to interact with it locally i.e. on one's device
 - Text Editor e.g. Visual Studio or Atom or pycharm - for creating, viewing and editing the code.
