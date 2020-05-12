@@ -12,13 +12,33 @@
     <title> HadithiBlog</title>
     {% endif %}
 </head>
-{% block styles%}
-{{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/web.css')}}">
-{% endblock %}
+
 <body>
+    {% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    {% endblock %}
+
     {% block content %}
-    Home Page
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card" style="margin-left: 60px; border: 5px solid palevioletred;width: 700px;height: 450px;margin-top: 50px;">
+                <div class="card-title">
+                    <h1 style="font-size: 40px; text-decoration: underline; margin-left: 40px;">A place to publish your best work.</h1>
+                </div>
+                <br>
+                <div class="card-body" style="font-size: 25px;">
+                    <h5 style="font-size: 25px; margin-left: 25px;">The internet should reward quality thinking, not clickbait. That’s why we’ve created a better home for writers,
+                    journalists and experts.</h5>
+                    <br>
+                    <h5 style="font-size: 25px; margin-left: 25px;"> It’s simple to use, free from ads, and connects you to curious, avid readers, so you can focus
+                    on what matters: putting your best work out there.</h5>
+                    <br>
+                    <a href="/blog/new" style="margin-left: 200px; border: 2px solid palevioletred; color: black; border-radius: 10px;">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endblock %}
 </body>
 

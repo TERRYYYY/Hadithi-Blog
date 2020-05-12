@@ -34,14 +34,13 @@ def index():
 @main.route('/blog/new', methods = ['GET','POST'])
 @login_required
 def new_blog():
-    user = User.query.filter_by(username = uname).first()
     form = BlogForm()
     if form.validate_on_submit():
         blog = Blog(title=form.title.data , subtitle=form.subtitle.data ,content=form.content.data )
         db.session.add(blog)
         db.session.commit()
         flash('Your post has been created !' , 'success')
-        return redirect(url_for('.index', uname=user.username))
+        return redirect(url_for('.index'))
 
     return render_template('new_blog.html',title='New Post',form=form)
 
